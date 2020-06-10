@@ -1,17 +1,9 @@
-#include <iostream>
-#include <limits>
-#include <tuple>
-#include <set>
-#include <vector>
-
+#include "algorithmmethodbrunchandbound.h"
 struct inf
 {
     unsigned int i = std::numeric_limits<unsigned int>::max();
 };
 struct inf myinf;
-
-using namespace std;
-
 struct Node
 {
     short unsigned size = 0;
@@ -21,36 +13,6 @@ struct Node
     struct Node* rnode = NULL;
     vector<pair<short unsigned, short unsigned>> way;
 };
-
-void matrixInitialization(struct Node*& head);
-void print(struct Node*& node, string information);
-unsigned castColumns(struct Node*& node);
-unsigned castRows(struct Node*& node);
-tuple<unsigned, pair<unsigned short, unsigned short>> penalty(struct Node* node);
-void copyLeftNode(struct Node*& node1, struct Node*& node2);
-void copyRightNode(struct Node*& node1, struct Node*& node2, pair<short unsigned, short unsigned> rib);
-pair<unsigned short, unsigned short> findCurrentMatrixIndex(Node*& lnode, pair<unsigned short, unsigned short> rib);
-void excludeEarlyTermination(Node*& lnode, pair<unsigned short, unsigned short> rib);
-void runProgram();
-
-int main()
-{
-    /*
-    6
-    68 73 24 70 9
-    58 16 44 11 92
-    63 9 86 13 18
-    17 34 76 52 70
-    60 18 3 45 58
-    16 82 11 60 48
-    */
-    tuple<unsigned, pair<unsigned short, unsigned short>> pen;
-    cout << "max:\t" << myinf.i << endl;
-    runProgram();
-
-    system("pause");
-    return 0;
-}
 
 void matrixInitialization(struct Node*& head)
 {
@@ -62,11 +24,11 @@ void matrixInitialization(struct Node*& head)
         head->matrix[i] = new pair<pair<unsigned short, unsigned short>, unsigned int>[head->size];
         for (unsigned short j = 0; j < head->size; ++j)
         {
-            if (i != j) cin >> head->matrix[i][j].second;
-            else head->matrix[i][j].second = myinf.i;
+//            if (i != j) cin >> head->matrix[i][j].second;
+//            else head->matrix[i][j].second = myinf.i;
 
-            head->matrix[i][j].first.first = i;
-            head->matrix[i][j].first.second = j;
+//            head->matrix[i][j].first.first = i;
+//            head->matrix[i][j].first.second = j;
         }
     }
 }

@@ -20,8 +20,7 @@ public:
     QVBoxLayout* layoutV;
     QTextBrowser* text;
     static void setTable(unsigned size, Window *window);
-private slots:
-    void okClicked();
+
 };
 
 #endif // WINDOW_H

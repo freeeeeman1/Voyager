@@ -33,8 +33,8 @@ static void setTable(unsigned size, Window *window) {
     window->table->setColumnCount(size);
 }
 
-void Window::okClicked() {
-    Alghoritm::main();
-}
+//void Window::okClicked() {
+//    Alghoritm::main();
+//}
 
 
