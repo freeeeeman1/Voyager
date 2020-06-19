@@ -1,4 +1,6 @@
 #include "algorithmmethodbrunchandbound.h"
+
+
 struct inf
 {
     unsigned int i = std::numeric_limits<unsigned int>::max();
@@ -8,15 +10,15 @@ struct Node
 {
     short unsigned size = 0;
     unsigned int cost = 0;
-    pair<pair<unsigned short, unsigned short>, unsigned int>** matrix = NULL;
+    std::pair<std::pair<unsigned short, unsigned short>, unsigned int>** matrix = NULL;
     struct Node* lnode = NULL;
     struct Node* rnode = NULL;
     vector<pair<short unsigned, short unsigned>> way;
 };
 
-void matrixInitialization(struct Node*& head)
+void matrixInitialization(struct Node*& head,std::pair<std::pair<unsigned short,  unsigned short>, unsigned>** matrix, unsigned short int size)
 {
-    cin >> head->size;
+    head->size = size;
     head->matrix = new pair<pair<unsigned short, unsigned short>, unsigned int>* [head->size];
 
     for (unsigned short i = 0; i < head->size; ++i)
@@ -24,42 +26,43 @@ void matrixInitialization(struct Node*& head)
         head->matrix[i] = new pair<pair<unsigned short, unsigned short>, unsigned int>[head->size];
         for (unsigned short j = 0; j < head->size; ++j)
         {
-//            if (i != j) cin >> head->matrix[i][j].second;
-//            else head->matrix[i][j].second = myinf.i;
+            if (i != j) head->matrix[i][j].second = matrix[i][j].second;
+            else head->matrix[i][j].second = myinf.i;
 
-//            head->matrix[i][j].first.first = i;
-//            head->matrix[i][j].first.second = j;
+            head->matrix[i][j].first.first = matrix[i][j].first.first;
+            head->matrix[i][j].first.second = matrix[i][j].first.second;
         }
     }
 }
 
-void print(struct Node*& node, string information)
+void print(struct Node*& node, string information, QTextBrowser *browser)
 {
-    cout << "--------------------------------------------------------------------------------" << endl << endl;
-    cout << "information:\t" << information << endl << "Cost:\t" << node->cost << endl << "Way:\t";
+    QString s, t;
+    browser->append("--------------------------------------------------------------------------------\n\n");
+    browser->append("information:\t" + (QString)information.c_str() + "\nCost:\t" + s.setNum(node->cost) + "\nWay:\t");
     if ((node->way).size())
     {
         for (unsigned short i = 0; i < (node->way).size(); ++i)
-            cout << "(" << (node->way)[i].first << " ; " << (node->way)[i].second << ")";
+            browser->append("(" + s.setNum((node->way)[i].first + 1) + " ; " + t.setNum((node->way)[i].second + 1) + ")");
     }
-    else cout << "Way is empty!" << endl;
+    else browser->append("\nWay is empty!\n");
 
-    cout << "Coordinates in rows and columns:" << endl;
-    for (unsigned short i = 0; i < node->size; ++i)
-        cout << "(" << (node->matrix)[i][0].first.first << " ; " << (node->matrix)[0][i].first.second << ")";
-    cout << endl << "Matrix:" << endl;
+//    browser->append("Coordinates in rows and columns:\n");
+//    for (unsigned short i = 0; i < node->size; ++i)
+//        browser->append("(" + s.setNum((node->matrix)[i][0].first.first + 1) + " ; " + s.setNum((node->matrix)[0][i].first.second + 1) + ")");
+//    browser->append("\nMatrix:\n");
 
-    for (unsigned short i = 0; i < node->size; ++i)
-    {
-        for (unsigned short j = 0; j < node->size; ++j)
-        {
-            if ((node->matrix)[i][j].second != myinf.i)
-                cout << (node->matrix)[i][j].second << "  ";
-            else cout << "inf  ";
-        }
-        cout << endl;
-    }
-    cout << endl << endl << "********************************************************************************" << endl;
+//    for (unsigned short i = 0; i < node->size; ++i)
+//    {
+//        for (unsigned short j = 0; j < node->size; ++j)
+//        {
+//            if ((node->matrix)[i][j].second != myinf.i)
+//                browser->append(s.setNum((node->matrix)[i][j].second) + "  ");
+//            else browser->append("inf  ");
+//        }
+//        browser->append("\n)");
+//    }
+//    browser->append("\n\n********************************************************************************\n");
 }
 
 unsigned castRows(struct Node*& node)
@@ -186,10 +189,10 @@ void copyRightNode(struct Node*& node1, struct Node*& node2, pair<short unsigned
     }
 };
 
-void runProgram()
+void runProgram(std::pair<std::pair<unsigned short,  unsigned short>, unsigned>** matrix, unsigned short int size, QTextBrowser* browser)
 {
     Node* head = new Node;
-    matrixInitialization(head);
+    matrixInitialization(head, matrix, size);
     Node* chead = head;
     set <Node*> lists;
     unsigned cast_function = 0;
@@ -226,7 +229,7 @@ void runProgram()
         //-------------------------------------------------------------------
         //Функция штрафа. Прибавляем cast_function к cost и убираем из возможных путей (irib; jrib)
         tie(cast_function, rib) = penalty(chead);
-        cout << endl << endl << endl << "Current penalty:\t" << cast_function << endl  << rib.first << " " << rib.second << endl << endl << endl;
+//        cout << endl << endl << endl << "Current penalty:\t" << cast_function << endl  << rib.first << " " << rib.second << endl << endl << endl;
         lnode->cost += cast_function;
         pair<unsigned short, unsigned short> help = findCurrentMatrixIndex(lnode, rib);
         (lnode->matrix)[help.first][help.second].second = myinf.i;
@@ -263,7 +266,7 @@ void runProgram()
     (chead->way).push_back(wayPushBack(chead, 0));
     (chead->way).push_back(wayPushBack(chead, 1));
     cout << endl << "Finish:" << endl;
-    print(chead, "Result:");
+    print(chead, "Result:", browser);
 }
 
 void excludeEarlyTermination(Node*& lnode, pair<unsigned short, unsigned short> rib)

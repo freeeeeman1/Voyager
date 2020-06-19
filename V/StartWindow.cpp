@@ -3,15 +3,9 @@
 #include "Delegate.h"
 #include <QRegExpValidator>
 #include <QHeaderView>
-#include <iostream>
-
-extern  std::pair<std::pair<unsigned short, unsigned short>, unsigned int>** matrix;
-extern unsigned short smatrix;
 
 StartWindow::StartWindow(QWidget *parent) : QDialog(parent)
 {
-    //smatrix = 5;
-    std::cout << smatrix;
     line = new QLineEdit;
     label = new QLabel("Введите количество городов <= 15");
     QWidget* window = new QWidget;

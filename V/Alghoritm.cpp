@@ -33,24 +33,24 @@ pair<unsigned short, unsigned short> findCurrentMatrixIndex(Node*& lnode, pair<u
 void excludeEarlyTermination(Node*& lnode, pair<unsigned short, unsigned short> rib);
 void runProgram();
 
-int main()
-{
-    /*
-    6
-    68 73 24 70 9
-    58 16 44 11 92
-    63 9 86 13 18
-    17 34 76 52 70
-    60 18 3 45 58
-    16 82 11 60 48
-    */
-    tuple<unsigned, pair<unsigned short, unsigned short>> pen;
-    cout << "max:\t" << myinf.i << endl;
-    runProgram();
+//int main()
+//{
+//	/*
+//	6
+//	68 73 24 70 9
+//	58 16 44 11 92
+//	63 9 86 13 18
+//	17 34 76 52 70
+//	60 18 3 45 58
+//	16 82 11 60 48
+//	*/
+//	tuple<unsigned, pair<unsigned short, unsigned short>> pen;
+//	cout << "max:\t" << myinf.i << endl;
+//	runProgram();
 
-    system("pause");
-    return 0;
-}
+//	system("pause");
+//	return 0;
+//}
 
 void matrixInitialization(struct Node*& head)
 {
